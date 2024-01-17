@@ -1,0 +1,26 @@
+{
+    "0": {
+        "root": "pic_ent_ids_1",
+        "file": [
+            "image_1.jpg",
+            "image_2.jpg",
+            "image_3.jpg"
+        ]
+    },
+    "1": {
+        "root": "pic_ent_ids_1",
+        "file": [
+            "image_1.jpg",
+            "image_2.jpg",
+            "image_3.jpg"
+        ]
+    },
+    "26098": {  
+        "root": "pic_ent_ids_2",
+        "file": [
+            "image_1.jpg",
+            "image_2.jpg",
+            "image_3.jpg"
+        ]
+    }
+}
