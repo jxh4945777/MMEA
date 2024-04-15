@@ -131,13 +131,13 @@ class Entity:
 		description = LLM(self.entity_name, self.tuples, self.images)
 		return description
 
-You are a helpful assistant, helping me align or match entities of knowledge graphs according to name information (self.entity_name), description information (get_description), structure information (self.tuples, get_neighbors(), get_relation_information()), time information (get_time_information()), IMAGES, YOUR OWN KNOWLEDGE.
+You are a helpful assistant, helping me align or match entities of knowledge graphs according to name information (self.entity_name), description information (get_description), structure information (self.tuples, get_neighbors(), get_relation_information()), image information (self.images), time information (get_time_information()), YOUR OWN KNOWLEDGE.
 
 Your reasoning process for entity alignment should strictly follow this case step by step:
 
 {{ CASE }}
 
-[Output Format]: [NAME SIMILARITY] = A out of 5, [PROBABILITY OF DESCRIPTION POINTING SAME ENTITY] = B out of 5, [STRUCTURE SIMILARITY] = C out of 5, [TIME SIMILARITY] = D out of 5, [IMAGE SIMILARITY] = E out of 5. NOTICE, A,B,C,D,E are in range [1, 2, 3, 4, 5], which respectively means [VERY LOW], [LOW], [MEDIUM], [HIGH], [VERY HIGH]. NOTICE, you MUST strictly output like [Output Format].
+[Output Format]: [NAME SIMILARITY] = A out of 5, [PROBABILITY OF DESCRIPTION POINTING SAME ENTITY] = B out of 5, [STRUCTURE SIMILARITY] = C out of 5, [IMAGE SIMILARITY] = D out of 5, [TIME SIMILARITY] = E out of 5. NOTICE, A,B,C,D,E are in range [1,2,3,4,5], which respectively means [VERY LOW], [LOW], [MEDIUM], [HIGH], [VERY HIGH]. NOTICE, you MUST strictly output like [Output Format].
 ```
 
 #### 3. Reasoning
@@ -153,9 +153,9 @@ Step 2, think of [PROBABILITY OF DESCRIPTION POINTING SAME ENTITY] = B out of 5,
 
 Step 3, think of [STRUCTURE SIMILARITY] = C out of 5, using self.tuples, get_neighbors() and get_relation_information().
 
-Step 4, think of [TIME SIMILARITY] = D out of 5, using get_time_information().
+step 4, think of [IMAGE SIMILARITY] = E out of 5, using self.images.
 
-Step 5, think of [IMAGE SIMILARITY] = E out of 5, using self.images.
+Step 5, think of [TIME SIMILARITY] = D out of 5, using get_time_information().
 ```
 
 #### 4. Rethinking

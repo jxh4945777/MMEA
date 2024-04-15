@@ -2,14 +2,23 @@ import os
 import json
 
 
+### json file IO
+def load_json(path):
+    with open(path, "r", encoding="utf-8") as fr:
+        datas = load_json(fr)
+    return datas
 
+def dump_json(path, obj):
+    with open(path, "w", encoding="utf-8") as fw:
+        json.dump(obj, fw, ensure_ascii=False, indent=4)
+
+
+### tool functions
 def merge_dict(dic1, dic2):
     return {**dic1, **dic2}
 
-
 def transform_idx_to_int(dic:dict):
     return {int(idx):data for idx, data in dic.items()}
-
 
 def transform_time(seconds:int):
     h, m, s = 0, 0, 0
@@ -19,7 +28,6 @@ def transform_time(seconds:int):
     seconds -= m * 60
     s = seconds
     return h, m, s
-
 
 def count_ranks(ranks):
     ###############
