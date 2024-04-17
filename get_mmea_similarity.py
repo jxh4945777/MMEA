@@ -1,5 +1,6 @@
 import os
 import json
+import random
 import pickle
 import argparse
 
@@ -9,10 +10,13 @@ from CSLS_ import *
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--data", type=str)
+parser.add_argument("--noise_ratio", type=float, default=0.0)
 args = parser.parse_args()
+noise = args.noise_ratio
 data = args.data
 data_dir = os.path.join("data", data)
 cand_dir = os.path.join(data_dir, "candidates")
+print(f"Data={data} , Noise Ratio={noise}")
 
 
 with open(os.path.join(cand_dir, "name_dict"), "r", encoding="utf-8") as fr:
@@ -47,18 +51,26 @@ l_ent, r_ent = list(l_ent), list(r_ent)
 l_e2i, r_e2i = {e:i for i, e in enumerate(l_ent)}, {e:i for i, e in enumerate(r_ent)}
 
 ### load image and text features
-def load_id_features(ent_num, feat_path):
+def load_id_features(ent_num, feat_path, noise_ratio=0.0):
     feat_dict = pickle.load(open(feat_path, "rb"))
     feat_np = np.array(list(feat_dict.values()))
     mean, std = np.mean(feat_np, axis=0), np.std(feat_np, axis=0)
     feat_embed = np.array([feat_dict[i] if i in feat_dict else np.random.normal(mean, std, mean.shape[0]) for i in range(ent_num)])
     feat_embed = feat_embed / np.linalg.norm(feat_embed, axis=-1, keepdims=True)
+    ### add noise to embeddings
+    if noise_ratio > 0:
+        dim = len(feat_embed[0])
+        sample_list = [i for i in range(dim)]
+        bs = 1024
+        for i in range((len(feat_embed)//bs) + 1):
+            mask_id = random.sample(sample_list, int(dim * noise_ratio))
+            feat_embed[i*bs:(i+1)*bs, mask_id] = 0
     return feat_embed, len(feat_dict)
 
 
-img_feats, len_img_dict = load_id_features(ent_num, os.path.join(cand_dir, f"{data}_id_img_feature_dict.pkl"))
+img_feats, len_img_dict = load_id_features(ent_num, os.path.join(cand_dir, f"{data}_id_img_feature_dict.pkl"), noise)
 print(f"### {len_img_dict/ent_num:.2%} entities have images.")
-txt_feats, len_txt_dict = load_id_features(ent_num, os.path.join(cand_dir, f"{data}_id_txt_feature_dict.pkl"))
+txt_feats, len_txt_dict = load_id_features(ent_num, os.path.join(cand_dir, f"{data}_id_txt_feature_dict.pkl"), noise)
 print(f"### {len_txt_dict/ent_num:.2%} entities have name texts.")
 
 ### image-image similarity
