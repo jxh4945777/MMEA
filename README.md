@@ -4,6 +4,31 @@
 
 Both the DBP15K and FB15K-YAGO15K are come from [MCLEA](https://github.com/lzxlin/MCLEA) reposity. You can download them directly in their pages.
 
+### Data Structure
+
+After downloading the data, please store the data files in the folder [data](data) according to the following structure:
+
+```
+data/
+├── icews_wiki/: The downloaded datasets
+|	├── candidates/: The processed datas
+|	|	├── image_path: The file which stores all paths of images
+|	├── ent_ids_1
+|	├── ent_ids_2
+|	├── rel_ids_1
+|	├── rel_ids_2
+|	├── time_id
+|	├── triples_1
+|	├── triples_2
+|	├── sup_pairs
+|	├── ref_pairs 
+├── icews_yago/
+|	├── ......
+├── FB15K_YAGO15K/
+|	├── ......
+├── ......
+```
+
 
 
 ### How to Run
@@ -12,7 +37,7 @@ The model runs in following steps:
 
 #### 1. Collect Candidates
 
-- Firstly, save the name dictionary, the knowledge tuples and the file path of images under `data/{DATASET}/candidates`. As for the detailed file format of data, please see `name_dict`, `neighbors` and `image_path` under [data/example/candidates](data/example/candidates).
+- Firstly, save the the file paths of images under `data/{DATASET}/candidates`. As for the detailed file format of data, please see `image_path` under [data/example/candidates](data/example/candidates).
 
 - Then, use EA methods based on emebddings to obtain the embeddings of entities. Save these embeddings as a dictionary like `{ent_id : embedding, ...}`, in which `ent_id` is entity ID in format `int` and `embedding` is entity embedding in format `numpy.ndarray`. Save the ID-to-embedding dictionary in file `{DATASET}_id_ent_feature_dict.pkl` under `data/{DATASET}/candidates`.
 
