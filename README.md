@@ -8,29 +8,29 @@ Both the DBP15K and FB15K-YAGO15K are come from [MCLEA](https://github.com/lzxli
 
 ### How to Run
 
-The model runs in 4 steps:
+The model runs in following steps:
 
 #### 1. Collect Candidates
 
-Firstly, save the name dictionary, the knowledge tuples and the file path of images under `data/{DATASET}/candidates`. As for the detailed file format of data, please see `name_dict`, `neighbors` and `image_path` under [data/example/candidates](data/example/candidates).
+- Firstly, save the name dictionary, the knowledge tuples and the file path of images under `data/{DATASET}/candidates`. As for the detailed file format of data, please see `name_dict`, `neighbors` and `image_path` under [data/example/candidates](data/example/candidates).
 
-Then, use EA methods based on emebddings to obtain the embeddings of entities. Save these embeddings as a dictionary like `{ent_id : embedding, ...}`, in which `ent_id` is entity ID in format `int` and `embedding` is entity embedding in format `numpy.ndarray`. Save the ID-to-embedding dictionary in file `{DATASET}_id_ent_feature_dict.pkl` under `data/{DATASET}/candidates`.
+- Then, use EA methods based on emebddings to obtain the embeddings of entities. Save these embeddings as a dictionary like `{ent_id : embedding, ...}`, in which `ent_id` is entity ID in format `int` and `embedding` is entity embedding in format `numpy.ndarray`. Save the ID-to-embedding dictionary in file `{DATASET}_id_ent_feature_dict.pkl` under `data/{DATASET}/candidates`.
 
-Next, use CLIP to obtain the image features and text (entity name) features of entities, use:
+- Next, use CLIP to obtain the image features and text (entity name) features of entities, use:
 
-```
-python clip_feature_extract.py --data DATASET --img_dir IMG_DIR --txt
-```
+  ```
+  python clip_feature_extract.py --data DATASET --img_dir IMG_DIR --txt
+  ```
 
-Finally, collect candidates, use:
+- Finally, collect candidates, use:
 
-```
-python get_candidates.py --data DATASET
-```
+  ```
+  python get_candidates.py --data DATASET
+  ```
 
 The candidates will be saved in `data/{DATASET}/candidates/all_cand`. As for the detailed data format, please see `cand` under [data/example/candidates](data/example/candidates).
 
-You can sample part of entities from `all_cand` and save them in `cand_XXXX`
+You can sample part of entities from `cand` and save them in other files
 
 #### 2. Pre-obtain the cross-modal similarity of entity pairs
 
@@ -39,6 +39,8 @@ For efficiency, we need to pre-obtain the cross-modal similarity of entity pairs
 ```
 python get_mmea_similarity.py --data DATASET
 ```
+
+For Step 1 and Step 2, [preprocess_for_icews_wiki.sh](preprocess_for_icews_wiki.sh) is an example of running code for pre-preparation on dataset icews_wiki.
 
 #### 3. Pre-obtain the entity descrptions
 
