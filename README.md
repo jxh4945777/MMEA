@@ -4,7 +4,7 @@
 
 Both the DBP15K and FB15K-YAGO15K are come from [MCLEA](https://github.com/lzxlin/MCLEA) reposity. You can download them directly in their pages.
 
-Both the ICEWS-WIKI and ICEWS-YAGO can be download from [GoogleDrive](https://drive.google.com/drive/folders/1GrN4NmQ-nkmkGJSyIFDTjTUqAfoREnNd?usp=sharing)
+Both the ICEWS-WIKI and ICEWS-YAGO can be download from [GoogleDrive](https://drive.google.com/drive/folders/1Yo-V3Qjjw7jz1I8wEmxW5CpIQG337r-g?usp=sharing)
 
 ### Data Structure
 
